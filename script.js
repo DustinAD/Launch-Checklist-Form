@@ -3,10 +3,14 @@ window.addEventListener("load", function() {
 
    let form = document.querySelector("form");
    form.addEventListener("submit", function(event) {
+      event.preventDefault();
       let pilotName = document.querySelector("input[name=pilotName]");
       let copilotName = document.querySelector("input[name=copilotName]");
       let fuelLevel = document.querySelector("input[name=fuelLevel]");
       let cargoMass = document.querySelector("input[name=cargoMass]");
+
+      document.getElementById("pilotStatus").innerHTML = `${pilotName} ready.`;
+      document.getElementById("copilotName").innerHTML = `${copilotName} ready`;
 
       if (pilotName.value === '' || copilotName.value === '' || fuelLevel.value === '' || cargoMass === '') {
          alert("All fields are required!");
@@ -17,24 +21,44 @@ window.addEventListener("load", function() {
       }
 
       if (isNaN(fuelLevel.value) || isNaN(cargoMass.value)) {
-         alert("Enter a valid number.")
+         alert("Enter a valid number.");
       }
-      event.preventDefault();
+
+      if (fuelLevel.value < 10000) {         
+         document.getElementById("faultyItems").style.visibility = "visible";
+         document.getElementById("fuelStatus").innerHTML = "Not enough fuel.";
+         document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
+         document.getElementById("launchStatus").style.color = "red";
+      }
+
+      if (cargoMass.value > 10000) {
+         document.getElementById("faultyItems").style.visibility = "visible";
+         document.getElementById("cargoStatus").innerHTML = "Too much mass for launch.";
+         document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch.";
+         document.getElementById("launchStatus").style.color = "red";
+      }
+
+      if (fuelLevel.value >= 10000 && cargoMass <= 10000) {
+         document.getElementById("launchStatus").style.color = "green";
+         document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch.";
+         
+
+      }
+      
    })
    fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
       response.json().then(function(json) {
-
-      })
-   })
-})
-/* This block of code shows how to format the HTML once you fetch some planetary JSON!
-<h2>Mission Destination</h2>
+         const div = document.getElementById('missionTarget');
+         div.innerHTML = `
+         <h2>Mission Destination</h2>
 <ol>
-   <li>Name: ${}</li>
-   <li>Diameter: ${}</li>
-   <li>Star: ${}</li>
-   <li>Distance from Earth: ${}</li>
-   <li>Number of Moons: ${}</li>
+   <li>Name: ${json[0].name}</li>
+   <li>Diameter: ${json[0].diameter}</li>
+   <li>Star: ${json[0].star}</li>
+   <li>Distance from Earth: ${json[0].distance}</li>
+   <li>Number of Moons: ${json[0].moons}</li>
 </ol>
-<img src="${}">
-*/
+<img src="${json[0].image}"></img>`;
+      })
+   })   
+});
