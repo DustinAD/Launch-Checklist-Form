@@ -3,7 +3,7 @@ window.addEventListener("load", function() {
 
    let form = document.querySelector("form");
    form.addEventListener("submit", function(event) {
-      event.preventDefault();
+     
       let pilotName = document.querySelector("input[name=pilotName]");
       let copilotName = document.querySelector("input[name=copilotName]");
       let fuelLevel = document.querySelector("input[name=fuelLevel]");
@@ -13,15 +13,15 @@ window.addEventListener("load", function() {
       document.getElementById("copilotName").innerHTML = `${copilotName} ready`;
 
       if (pilotName.value === '' || copilotName.value === '' || fuelLevel.value === '' || cargoMass === '') {
-         alert("All fields are required!");
+         window.alert("All fields are required!");
       }
 
       if (!isNaN(pilotName.value) || !isNaN(copilotName.value)) {
-         alert("Enter valid name.");
+         window.alert("Enter valid name.");
       }
 
       if (isNaN(fuelLevel.value) || isNaN(cargoMass.value)) {
-         alert("Enter a valid number.");
+         window.alert("Enter a valid number.");
       }
 
       if (fuelLevel.value < 10000) {         
@@ -38,12 +38,12 @@ window.addEventListener("load", function() {
          document.getElementById("launchStatus").style.color = "red";
       }
 
-      if (fuelLevel.value >= 10000 && cargoMass <= 10000) {
+      if (fuelLevel.value >= 10000 && cargoMass <= 10000) {        
          document.getElementById("launchStatus").style.color = "green";
          document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch.";
-         
-
       }
+
+      event.preventDefault();
       
    })
    fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
