@@ -21,26 +21,23 @@ window.addEventListener("load", function() {
       
       } else if (fuelLevel.value < 10000) {         
          document.getElementById("faultyItems").style.visibility = "visible";
-         document.getElementById("pilotStatus").innerHTML = `${pilotName} ready`;
-         document.getElementById("copilotStatus").innerHTML = `${copilotName} ready`;
+         document.getElementById("pilotStatus").innerHTML = `${pilotName.value} ready`;
+         document.getElementById("copilotStatus").innerHTML = `${copilotName.value} ready`;
          document.getElementById("fuelStatus").innerHTML = "Not enough fuel.";
          document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch";
          document.getElementById("launchStatus").style.color = "red";
       
       } else if (cargoMass.value > 10000) {
          document.getElementById("faultyItems").style.visibility = "visible";
-         document.getElementById("pilotStatus").innerHTML = `${pilotName} ready`;
-         document.getElementById("copilotStatus").innerHTML = `${copilotName} ready`;
+         document.getElementById("pilotStatus").innerHTML = `${pilotName.value} ready`;
+         document.getElementById("copilotStatus").innerHTML = `${copilotName.value} ready`;
          document.getElementById("cargoStatus").innerHTML = "Too much mass for launch.";
          document.getElementById("launchStatus").innerHTML = "Shuttle not ready for launch.";
          document.getElementById("launchStatus").style.color = "red";
       
       } else {                
          document.getElementById("launchStatus").style.color = "green";
-         document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch.";
-         document.getElementById("faultyItems").style.visibility = "visible";
-         document.getElementById("pilotStatus").innerHTML = `${pilotName} ready`;
-         document.getElementById("copilotStatus").innerHTML = `${copilotName} ready`;
+         document.getElementById("launchStatus").innerHTML = "Shuttle is ready for launch.";       
       }
 
       event.preventDefault();
